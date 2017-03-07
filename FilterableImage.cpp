@@ -26,16 +26,26 @@ void FilterableImage::setLevel(float level)
 
 void FilterableImage::loadFromFile(const QUrl& fileUri)
 {
-    qDebug() << "Loading from" << fileUri;
+    m_image = QImage( fileUri.toLocalFile() );
+
+    if (m_image.isNull()) {
+        qDebug() << "Loading image from" << fileUri << " failed!";
+    }
+
+    update();
 }
 
 void FilterableImage::saveToFile(const QUrl& fileUri)
 {
-    qDebug() << "Saving to" << fileUri;
+    if (!m_image.isNull()) {
+        qDebug() << "Saving to" << fileUri;
+        m_image.save(fileUri.toLocalFile());
+    }
 }
 
 void FilterableImage::paint(QPainter * painter)
 {
-    const auto value = 255 * m_level;
-    painter->fillRect(painter->viewport(), qRgb(value, value, value) );
+    if (!m_image.isNull()) {
+        painter->drawImage(painter->viewport(), m_image);
+    }
 }

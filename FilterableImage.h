@@ -2,6 +2,7 @@
 #define FILTERABLEIMAGE_H
 
 #include <QQuickPaintedItem>
+#include <QImage>
 
 class FilterableImage : public QQuickPaintedItem
 {
@@ -25,6 +26,7 @@ public slots:
 
 private:
     float m_level = 0.5f;
+    QImage m_image;
 };
 
 #endif // FILTERABLEIMAGE_H
