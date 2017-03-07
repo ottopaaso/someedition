@@ -12,15 +12,8 @@ Window {
 
     // Image
     Rectangle {
-        id: image
-
         FilterableImage {
-            id: foobar
-        }
-
-        Text {
-            text: foobar.text
-            anchors.centerIn: parent
+            id: image
         }
 
         anchors.left: parent.left
@@ -52,6 +45,8 @@ Window {
         anchors.right: saveButton.left
         anchors.top: loadButton.top
         anchors.bottom: parent.bottom
+
+        onValueChanged: image.level = value;
     }
 
     // SaveButton
