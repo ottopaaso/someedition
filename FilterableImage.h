@@ -20,6 +20,8 @@ signals:
 
 public slots:
     void setLevel(float level);
+    void loadFromFile(const QUrl& fileUri);
+    void saveToFile(const QUrl& fileUri);
 
 private:
     float m_level = 0.5f;

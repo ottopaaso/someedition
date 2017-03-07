@@ -22,6 +22,18 @@ void FilterableImage::setLevel(float level)
     update();
 }
 
+#include <QDebug>
+
+void FilterableImage::loadFromFile(const QUrl& fileUri)
+{
+    qDebug() << "Loading from" << fileUri;
+}
+
+void FilterableImage::saveToFile(const QUrl& fileUri)
+{
+    qDebug() << "Saving to" << fileUri;
+}
+
 void FilterableImage::paint(QPainter * painter)
 {
     const auto value = 255 * m_level;

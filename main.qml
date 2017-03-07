@@ -1,6 +1,8 @@
 import QtQuick 2.7
-import QtQuick.Window 2.2
+
 import QtQuick.Controls 2.1
+import QtQuick.Dialogs 1.0
+import QtQuick.Window 2.2
 
 import on.someedit 1.0
 
@@ -37,6 +39,18 @@ Window {
 
         width: 90
         height: 90
+
+        FileDialog {
+            id: loadFileDialog
+            title: "Please choose an image file"
+            selectMultiple: false
+            folder: shortcuts.home
+            onAccepted: {
+                image.loadFromFile(loadFileDialog.fileUrl);
+            }
+        }
+
+        onClicked: loadFileDialog.visible = true;
     }
 
     // Effect Slider
@@ -62,5 +76,18 @@ Window {
 
         width: 90
         height: 90
+
+        FileDialog {
+            id: saveFileDialog
+            title: "Please choose where to save image"
+            selectMultiple: false
+            selectExisting: false
+            folder: shortcuts.home
+            onAccepted: {
+                image.saveToFile(saveFileDialog.fileUrl);
+            }
+        }
+
+        onClicked: saveFileDialog.visible = true;
     }
 }
