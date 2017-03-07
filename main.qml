@@ -14,6 +14,9 @@ Window {
     Rectangle {
         FilterableImage {
             id: image
+            anchors.centerIn: parent
+            width: parent.width - 20
+            height: parent.height - 20
         }
 
         anchors.left: parent.left
