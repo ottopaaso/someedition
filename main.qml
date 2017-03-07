@@ -2,6 +2,8 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.1
 
+import on.someedit 1.0
+
 Window {
     visible: true
     width: 640
@@ -11,6 +13,15 @@ Window {
     // Image
     Rectangle {
         id: image
+
+        FilterableImage {
+            id: foobar
+        }
+
+        Text {
+            text: foobar.text
+            anchors.centerIn: parent
+        }
 
         anchors.left: parent.left
         anchors.top: parent.top
