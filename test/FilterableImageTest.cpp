@@ -41,3 +41,25 @@ void FilterableImageTest::scaleToFitInside()
         QCOMPARE(result.bottomRight(), QPoint(10, 7));
     }
 }
+
+void FilterableImageTest::filterIsUsed()
+{
+    // We expect that filter is used when an image is set to FilterableImage
+    int filterCallCount = 0;
+    const auto filter = [&filterCallCount](const QImage& originalImage) {
+        filterCallCount++;
+        return originalImage;
+    };
+
+    //const auto sut = QScopedPointer<FilterableImage>(new FilterableImage);
+    const auto sut = new FilterableImage();
+    auto image = QImage(50, 50, QImage::Format_ARGB32);
+
+    QCOMPARE(filterCallCount, 0);
+    sut->setImage(image);
+    QCOMPARE(filterCallCount, 0);
+    sut->setFilter(filter);
+    QCOMPARE(filterCallCount, 1);
+    sut->setImage(image);
+    QCOMPARE(filterCallCount, 2);
+}

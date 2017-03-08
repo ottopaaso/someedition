@@ -47,12 +47,17 @@ void FilterableImage::setLevel(float level)
 
 void FilterableImage::loadFromFile(const QUrl& fileUri)
 {
-    m_image = QImage( fileUri.toLocalFile() );
+    setImage( QImage( fileUri.toLocalFile() ) );
 
     if (m_image.isNull()) {
         qDebug() << "Loading image from" << fileUri << " failed!";
     }
+}
 
+void FilterableImage::setImage(const QImage &image)
+{
+    m_image = image;
+    applyImageFilter();
     update();
 }
 
@@ -64,10 +69,21 @@ void FilterableImage::saveToFile(const QUrl& fileUri)
     }
 }
 
+void FilterableImage::setFilter(const FilterableImage::FILTER_T& filter)
+{
+    m_filter = filter;
+    applyImageFilter();
+}
+
+void FilterableImage::applyImageFilter()
+{
+    m_filteredImage = m_filter(m_image);
+}
+
 void FilterableImage::paint(QPainter * painter)
 {
     painter->setRenderHint(QPainter::Antialiasing, true);
     if (!m_image.isNull()) {
-        painter->drawImage( scaleToFitInside(painter->viewport(), m_image.rect()), m_image);
+        painter->drawImage( scaleToFitInside(painter->viewport(), m_filteredImage.rect()), m_filteredImage);
     }
 }
