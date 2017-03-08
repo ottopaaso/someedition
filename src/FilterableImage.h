@@ -10,6 +10,8 @@ class FilterableImage : public QQuickPaintedItem
     Q_PROPERTY(float level READ getLevel WRITE setLevel NOTIFY levelChanged)
 
 public:
+    static QRect scaleToFitInside(const QRect& bounds, QRect originalGeometry);
+
     explicit FilterableImage(QQuickItem *parent = 0);
 
     float getLevel() const;

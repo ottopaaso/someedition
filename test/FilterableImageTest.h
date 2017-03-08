@@ -10,7 +10,7 @@ public:
     explicit FilterableImageTest(QObject *parent = 0);
 
 private slots:
-    void keepAspectRatio();
+    void scaleToFitInside();
 };
 
 #endif // FILTERABLEIMAGETEST_H

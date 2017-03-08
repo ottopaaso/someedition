@@ -2,6 +2,27 @@
 
 #include <QPainter>
 
+QRect FilterableImage::scaleToFitInside(const QRect& bounds, QRect geometry)
+{
+    geometry.moveCenter(bounds.center());
+    if (bounds.contains(geometry)) {
+        return geometry;
+    }
+
+    const auto& boundSize = bounds.size();
+    const auto& rectSize = geometry.size();
+
+    const auto aspectRatio = (double) rectSize.height() / rectSize.width();
+    const auto factor = aspectRatio > 1.0 ?
+                (double) boundSize.height() / rectSize.height() :
+                (double) boundSize.width() / rectSize.width();
+
+    geometry.setSize( QSize(factor * rectSize.width(), factor * rectSize.height()) );
+    geometry.moveCenter(bounds.center());
+
+    return geometry;
+}
+
 FilterableImage::FilterableImage(QQuickItem *parent) : QQuickPaintedItem(parent)
 {
 
