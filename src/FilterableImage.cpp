@@ -66,7 +66,8 @@ void FilterableImage::saveToFile(const QUrl& fileUri)
 
 void FilterableImage::paint(QPainter * painter)
 {
+    painter->setRenderHint(QPainter::Antialiasing, true);
     if (!m_image.isNull()) {
-        painter->drawImage(painter->viewport(), m_image);
+        painter->drawImage( scaleToFitInside(painter->viewport(), m_image.rect()), m_image);
     }
 }
