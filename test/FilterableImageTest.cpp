@@ -46,7 +46,7 @@ void FilterableImageTest::filterIsUsed()
 {
     // We expect that filter is used when an image is set to FilterableImage
     int filterCallCount = 0;
-    const auto filter = [&filterCallCount](const QImage& originalImage) {
+    const auto filter = [&filterCallCount](const QImage& originalImage, float) {
         filterCallCount++;
         return originalImage;
     };
@@ -62,4 +62,25 @@ void FilterableImageTest::filterIsUsed()
     QCOMPARE(filterCallCount, 1);
     sut->setImage(image);
     QCOMPARE(filterCallCount, 2);
+
+    sut->deleteLater();
 }
+
+void FilterableImageTest::filterLevelingIsPassed()
+{
+    float filterLevel = 0.0f;
+    const auto filter = [&filterLevel](const QImage& image, float level) {
+        filterLevel = level;
+        return image;
+    };
+
+    const auto sut = new FilterableImage();
+    sut->setFilter(filter);
+    QCOMPARE(filterLevel, 0.5f);
+    sut->setLevel(0.9f);
+    QCOMPARE(filterLevel, 0.9f);
+    sut->setLevel(0.0f);
+    QCOMPARE(filterLevel, 0.0f);
+}
+
+

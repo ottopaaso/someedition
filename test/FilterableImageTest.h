@@ -12,6 +12,7 @@ public:
 private slots:
     void scaleToFitInside();
     void filterIsUsed();
+    void filterLevelingIsPassed();
 };
 
 #endif // FILTERABLEIMAGETEST_H

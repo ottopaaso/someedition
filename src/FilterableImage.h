@@ -12,7 +12,7 @@ class FilterableImage : public QQuickPaintedItem
     Q_PROPERTY(float level READ getLevel WRITE setLevel NOTIFY levelChanged)
 
 public:
-    typedef std::function<QImage(const QImage&)> FILTER_T;
+    typedef std::function<QImage(const QImage&, float)> FILTER_T;
 
     static QRect scaleToFitInside(const QRect& bounds, QRect originalGeometry);
 
@@ -36,7 +36,7 @@ public slots:
 private:
     float m_level = 0.5f;
     QImage m_image;
-    FILTER_T m_filter = [](const QImage& image) {
+    FILTER_T m_filter = [](const QImage& image, float) {
         return image;
     };
     QImage m_filteredImage;

@@ -36,10 +36,11 @@ float FilterableImage::getLevel() const
 void FilterableImage::setLevel(float level)
 {
     if (m_level == level)
-            return;
+        return;
 
     m_level = level;
     emit levelChanged(level);
+    applyImageFilter();
     update();
 }
 
@@ -77,7 +78,7 @@ void FilterableImage::setFilter(const FilterableImage::FILTER_T& filter)
 
 void FilterableImage::applyImageFilter()
 {
-    m_filteredImage = m_filter(m_image);
+    m_filteredImage = m_filter(m_image, m_level);
 }
 
 void FilterableImage::paint(QPainter * painter)

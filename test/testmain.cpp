@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 
     for (QObject* test : tests) {
         QTest::qExec(test);
+        test->deleteLater();
     }
 
     return 0;
