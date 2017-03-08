@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8.11)
 project(SomeEdition)
 
 add_subdirectory(src)
+add_subdirectory(test)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
